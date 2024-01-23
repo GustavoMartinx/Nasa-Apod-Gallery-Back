@@ -1,0 +1,12 @@
+**/venv/
+**/Include/
+**/__pycache__/
+**/pyvenv.cfg
+**/Lib/
+**/Scripts/
+**/bin/
+**/lib/
+**/lib64/
+lib64/
+**.sqlite3
+Django/NAG/local_settings.py
