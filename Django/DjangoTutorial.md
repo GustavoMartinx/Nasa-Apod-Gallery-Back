@@ -7,9 +7,9 @@ Seus objetivos incluem promover o desenvolvimento ágil, reduzir a duplicação 
 ### Padrão Model View Template (MVT)
 **Model**: Representa a camada de acesso a dados. Ele define como os dados são armazenados, acessados e manipulados.
 
-**View**: Representa a camada de apresentação. Ela lida com a lógica de apresentação e interação do usuário, mas não manipula os dados diretamente.
+**View**: Lida com a lógica de interação do usuário. Seu papel é gerenciar as requisições, mas não manipula os dados diretamente.
 
-**Template**: Esta camada é responsável pela apresentação da informação e representa a camada de templates do Django. Os templates são usados para criar a interface do usuário com a lógica de apresentação.
+**Template**: Esta camada é responsável pela apresentação da informação. Os templates são usados para criar a interface do usuário com a lógica de apresentação.
 
 <br>
 
@@ -61,6 +61,17 @@ Em seguida, **ative-o** (execute este comando sempre antes de executar o projeto
 ### Como criar um app Django
     python manage.py startapp nome_do_app
 
+- Com a app criada, faz-se necessário acoplá-la ao projeto. Para tal, insira a linha ``"nome_do_app.apps.NomeDoAppConfig",`` no fim do array `INSTALLED_APPS` do arquivo `nome_do_projeto/settings.py`, da seguinte forma:
+
+    ```python
+    INSTALLED_APPS = [
+        "django.contrib.admin",
+        "django.contrib.auth",
+        ...
+        "nome_do_app.apps.NomeDoAppConfig",
+    ]
+    ```
+
 ### Como criar o usuário admin
     python manage.py createsuperuser
 
@@ -72,7 +83,7 @@ Em seguida, **ative-o** (execute este comando sempre antes de executar o projeto
 
 2. Crie um arquivo chamado ``local_settings.py`` dentro do diretório ``nome_do_projeto/`` (por exemplo, neste projeto seria ``Django/NAG/``) e adicione o seguinte código;
 
-- Note que você deve modificar todos os campos abaixo de acordo com as configurações do seu banco de dados, tais como ``NAME``, ``USER``, ``PASSWORD`` e ``PORT``.
+- Note que você deve modificar todos os campos abaixo de acordo com as configurações do seu banco de dados, tais como ``NAME``, ``USER``, ``PASSWORD`` e ``PORT``. Além disso, acesse o arquivo `nome_do_projeto/settings.py`, remova a `SECRET_KEY` de lá e adicione-a em `local_settings.py` conforme é mostrado a seguir.
 
     ```python
     from nome_do_projeto.settings import *
@@ -87,7 +98,11 @@ Em seguida, **ative-o** (execute este comando sempre antes de executar o projeto
             'PORT': '3306',
         }
     }
+
+    SECRET_KEY = "sua_chave_secreta"
     ```
+
+- Essa etapa é de extrema importância, pois adiciona uma camada de segurança para a aplicação. Portanto, **lembre-se de adicionar este arquivo (`local_settings.py`) no seu `.gitignore`**.
 
 3. **Execute as migrações** (já utilizando as configurações de ``local_settings.py``):
 
