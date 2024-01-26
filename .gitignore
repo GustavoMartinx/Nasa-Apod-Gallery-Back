@@ -9,4 +9,4 @@
 **/lib64/
 lib64/
 **.sqlite3
-Django/NAG/local_settings.py
+Django/NAG/NAG/local_settings.py

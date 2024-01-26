@@ -81,7 +81,7 @@ Em seguida, **ative-o** (execute este comando sempre antes de executar o projeto
 
 1. Crie um banco de dados pelo MySql;
 
-2. Crie um arquivo chamado ``local_settings.py`` dentro do diretório ``nome_do_projeto/`` (por exemplo, neste projeto seria ``Django/NAG/``) e adicione o seguinte código;
+2. Crie um arquivo chamado ``local_settings.py`` dentro do diretório ``nome_do_projeto/`` (por exemplo, neste projeto seria ``Django/NAG/NAG``) e adicione o seguinte código;
 
 - Note que você deve modificar todos os campos abaixo de acordo com as configurações do seu banco de dados, tais como ``NAME``, ``USER``, ``PASSWORD`` e ``PORT``. Além disso, acesse o arquivo `nome_do_projeto/settings.py`, remova a `SECRET_KEY` de lá e adicione-a em `local_settings.py` conforme é mostrado a seguir.
 
