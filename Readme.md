@@ -1,6 +1,8 @@
 # Nasa Apod Gallery (NAG)
 NAG é uma galeria das imagens astronômicas disponibilizadas pela Nasa. Os diferentes serviços de backend deste repositório consomem uma [API da Nasa](https://github.com/nasa/apod-api) para a obtenção das imagens e seus metadados.
 
+O objetivo é criar três serviços de backend (a saber, em Django, em Java e em Go) com as mesmas funcionalidades para colocar em prática e consolidar o conhecimento das linguagens de programação e frameworks já utilizados em outros projetos.
+
 <br>
 
 # Django Backend
