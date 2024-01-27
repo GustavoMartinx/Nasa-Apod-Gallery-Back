@@ -116,6 +116,42 @@ Em seguida, **ative-o** (execute este comando sempre antes de executar o projeto
 
 <br>
 
+## Como configurar o middleware CORS
+    
+Ah, o famoso problema de CORS! Esse erro ocorre quando a sua página da web, hospedada em um domínio (neste caso, ``http://localhost:5173``), tenta fazer uma solicitação XMLHttpRequest para outro domínio (``http://localhost:8000``) que não permite explicitamente tais solicitações.
+
+Para resolver isso, é necessário configurar o seu servidor (``http://localhost:8000``) para incluir os cabeçalhos CORS apropriados em suas respostas. Especificamente, você precisa adicionar um cabeçalho ``Access-Control-Allow-Origin`` com o valor do domínio que está fazendo a solicitação (``http://localhost:5173``).
+
+**1.** No Django, podemos utilizar o pacote ``django-cors-headers``:
+
+        pip install django-cors-headers
+
+**2.** Agora, no arquivo ``settings.py``, adicione o seguinte:
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'corsheaders',
+    # ...
+]
+
+MIDDLEWARE = [
+    # ...
+    "corsheaders.middleware.CorsMiddleware", # Adicione a linha do middleware cors
+    "django.middleware.common.CommonMiddleware", # Exatamente acima deste middleware
+    # ...
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173", # Insira o domínio do seu serviço que consome este backend, neste caso, um local host padrão de React
+]
+```
+
+
+
+
+<br>
+
 ## Referências e Agradecimentos:
 
 > "If I have seen further, it is by standing on the shoulders of giants."  — Isaac Newton
