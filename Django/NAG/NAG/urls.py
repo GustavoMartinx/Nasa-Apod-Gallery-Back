@@ -21,4 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 
     path("api_handler/", include("api_handler.urls")),
+    path('accounts/', include('allauth.urls')),
 ]

@@ -23,8 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
+LOGIN_REDIRECT_URL = "http://localhost:5173/"
 
 # Application definition
 
@@ -35,8 +36,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
     "api_handler.apps.ApiHandlerConfig",
+    
     "corsheaders",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    
+    "allauth.socialaccount.providers.google",
 ]
 
 MIDDLEWARE = [
@@ -48,7 +56,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
 
 ROOT_URLCONF = "NAG.urls"
 
@@ -67,6 +78,11 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 WSGI_APPLICATION = "NAG.wsgi.application"
 
@@ -125,3 +141,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# não se esqueça de configurar no seu local_settings.py:
+# DATABASES, SECRET_KEY (do django), SOCIALACCOUNT_PROVIDERS (para autenticação externa) e API_KEY (para a API da Nasa)
