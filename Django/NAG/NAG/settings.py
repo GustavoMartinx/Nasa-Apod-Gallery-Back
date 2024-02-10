@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     
     "api_handler.apps.ApiHandlerConfig",
+    "accounts.apps.AccountsConfig",
     
     "corsheaders",
     "allauth",
