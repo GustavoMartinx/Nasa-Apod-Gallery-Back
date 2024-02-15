@@ -6,14 +6,10 @@ from rest_framework import status
 @login_required
 def get_user_profile(request):
     user = request.user
-    print(user)
     social_account = SocialAccount.objects.filter(user=user).first()
     if social_account:
         user_data = {
             'username': user.username,
-            'email': user.email,
-            'uid': social_account.uid,
-
             'name': social_account.extra_data.get('name', ''),
             'picture': social_account.extra_data.get('picture', ''),
         }

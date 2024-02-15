@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "localhost:5173"]
 
 LOGIN_REDIRECT_URL = "http://localhost:5173/"
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     
     "api_handler.apps.ApiHandlerConfig",
     "accounts.apps.AccountsConfig",
+    "saved_collections.apps.SavedCollectionsConfig",
     
     "corsheaders",
     "allauth",
@@ -87,9 +88,13 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = "NAG.wsgi.application"
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases

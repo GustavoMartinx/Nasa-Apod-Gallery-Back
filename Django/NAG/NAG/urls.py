@@ -24,4 +24,6 @@ urlpatterns = [
     
     path('accounts/', include('allauth.urls')),
     path('users/', include('accounts.urls')),
+
+    path("saved-collections/", include("saved_collections.urls")),
 ]
