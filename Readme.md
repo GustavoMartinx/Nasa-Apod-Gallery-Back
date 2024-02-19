@@ -41,13 +41,17 @@ Aprenda o que é o Django, como criar seu primeiro projeto e muito mais [nesse t
         make install
 
 
-### 3 - Conecte com Banco de Dados MySQL e Servidor Local
+### 3 - Conecte com Banco de Dados MySQL e Crie as Configurações Locais
 
 1. Crie um banco de dados pelo MySql (nomeie-o `nag_db`);
 
 2. Crie um arquivo chamado ``local_settings.py`` dentro do diretório ``Django/NAG/`` e adicione o seguinte código;
 
 - Note que você deve modificar todos os campos abaixo de acordo com as configurações do seu banco de dados, tais como ``USER``, ``PASSWORD`` e ``PORT``.
+
+- Além disso, você também deve adquirir uma API key da Nasa [aqui](https://api.nasa.gov).
+
+- E, caso deseje o uso de autenticação com Google, siga as instruções do [meu tutorial](https://github.com/GustavoMartinx/Nasa-Apod-Gallery-Back/blob/main/Django/DjangoTutorial.md#como-fazer-login-de-usu%C3%A1rios-em-django-com-google-atrav%C3%A9s-do-allauth) para obter as chaves para a sua aplicação.
 
     ```python
     from nome_do_projeto.settings import *
@@ -62,6 +66,21 @@ Aprenda o que é o Django, como criar seu primeiro projeto e muito mais [nesse t
             'PORT': '3306',
         }
     }
+
+    # Configurações do Django-AllAuth para autenticação com Google
+    SOCIALACCOUNT_PROVIDERS = {
+        'google': {
+            'APP': {
+                'client_id': '', # ID da sua aplicação
+                'secret': '', # Chave da sua aplicação
+                'key': ''
+            }
+        }
+    }
+
+    SECRET_KEY = "" # Chave de segurança do Django (inicialmente no arquivo settings.py)
+    API_KEY = "" # API key da Nasa
+
     ```
 
 3. **Execute as migrações** (já utilizando as configurações de ``local_settings.py``):
