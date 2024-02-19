@@ -1,10 +1,25 @@
 # Conhecimentos sobre o Framework Django
 
-Django é um _framework web_ em Python que simplifica o desenvolvimento, seguindo o padrão _Model-View-Template_ (MVT), e visa facilitar a criação rápida e eficiente de aplicações web robustos, integrando ORM (_Object-Relational Mapping_), administração automática e facilitando a manipulação de _URLs_.
+Django é um _framework web_ Python que simplifica o desenvolvimento, seguindo o padrão _Model-View-Template_ (MVT), e visa facilitar a criação rápida e eficiente de aplicações web robustas, integrando ORM (_Object-Relational Mapping_), administração automática e facilitando a manipulação de _URLs_.
 
 Seus objetivos incluem promover o desenvolvimento ágil, reduzir a duplicação de código, por meio de seus apps, e fornecer uma estrutura sólida para construção de aplicativos escaláveis e seguros.
 
-### Padrão Model View Template (MVT)
+
+## Índice
+
+**1.** [**O Padrão Model View Template (MVT)**](#o-padrão-model-view-template-mvt)<br>
+**2.** [**Como iniciar um projeto web em Django**](#como-iniciar-um-projeto-web-em-django)<br>
+**3.** [**Como criar um app Django**](#como-criar-um-app-django)<br>
+**4.** [**Como criar o usuario administrador do Django**](#como-criar-o-usuário-admin)<br>
+**5.** [**Conexão com Banco de Dados MySQL e Servidor Local**](#conexão-com-banco-de-dados-mysql-e-servidor-local)<br>
+**6.** [**Como configurar o middleware CORS**](#como-configurar-o-middleware-cors)<br>
+**7.** [**Como fazer login de usuários em Django com Google através do AllAuth**](#como-fazer-login-de-usuários-em-django-com-google-através-do-allauth)<br>
+**8.** [**Referências e Agradecimentos**](#referências-e-agradecimentos)
+
+<br>
+
+
+## O Padrão Model View Template (MVT)
 **Model**: Representa a camada de acesso a dados. Ele define como os dados são armazenados, acessados e manipulados.
 
 **View**: Lida com a lógica de interação do usuário. Seu papel é gerenciar as requisições, mas não manipula os dados diretamente.
@@ -14,7 +29,7 @@ Seus objetivos incluem promover o desenvolvimento ágil, reduzir a duplicação 
 <br>
 
 
-## Como criar uma aplicação web em Django
+## Como iniciar um projeto web em Django
 
 ### 1 - Crie um Ambiente Virtual
 
@@ -100,9 +115,10 @@ Em seguida, **ative-o** (execute este comando sempre antes de executar o projeto
     }
 
     SECRET_KEY = "sua_chave_secreta"
+    # E demais configurações sigilosas
     ```
 
-- Essa etapa é de extrema importância, pois adiciona uma camada de segurança para a aplicação. Portanto, **lembre-se de adicionar este arquivo (`local_settings.py`) no seu `.gitignore`**.
+- Essa etapa é de extrema importância, pois adiciona uma camada de segurança mínima para a aplicação. Portanto, **lembre-se de adicionar este arquivo (`local_settings.py`) no seu `.gitignore`**.
 
 3. **Execute as migrações** (já utilizando as configurações de ``local_settings.py``):
 
