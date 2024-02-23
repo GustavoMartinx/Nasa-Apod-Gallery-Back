@@ -41,3 +41,16 @@ def list_saved_collections(request):
         return JsonResponse({'error': 'No collections found.'}, status=status.HTTP_404_NOT_FOUND)
     
     return JsonResponse({'collections': [collection.name for collection in collections]}, status=status.HTTP_200_OK)
+
+
+@login_required
+@api_view(['PUT'])
+def rename_collection(request):
+    try:
+        collection = SavedCollections.objects.get(user=request.user, name=request.data.get('current_collection_name'))
+        collection.name = request.data.get('new_collection_name')
+        collection.save()
+    except SavedCollections.DoesNotExist:
+        return JsonResponse({'error': 'Collection not found.'}, status=status.HTTP_404_NOT_FOUND)
+    
+    return JsonResponse({'message': 'Collection renamed successfully!'}, status=status.HTTP_200_OK)
