@@ -49,8 +49,28 @@ def rename_collection(request):
     try:
         collection = SavedCollections.objects.get(user=request.user, name=request.data.get('current_collection_name'))
         collection.name = request.data.get('new_collection_name')
-        collection.save()
     except SavedCollections.DoesNotExist:
-        return JsonResponse({'error': 'Collection not found.'}, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'error': f'Collection {request.data.get("current_collection_name")} not found.'}, status=status.HTTP_404_NOT_FOUND)
+    
+    try:
+        collection.save()
+    except:
+        return JsonResponse({'error': f'Something went wrong while renaming the {request.data.get("current_collection_name")} collection.'}, status=status.HTTP_400_BAD_REQUEST)
     
     return JsonResponse({'message': 'Collection renamed successfully!'}, status=status.HTTP_200_OK)
+
+
+@login_required
+@api_view(['DELETE'])
+def delete_collection(request, collection_name):
+    try:
+        collection = SavedCollections.objects.get(user=request.user, name=collection_name)
+    except SavedCollections.DoesNotExist:
+        return JsonResponse({'error': f'Collection {collection_name} not found.'}, status=status.HTTP_404_NOT_FOUND)
+    
+    try:
+        collection.delete()
+    except:
+        return JsonResponse({'error': f'Something went wrong while deleting the {collection_name} collection.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    return JsonResponse({'message': f'Collection {collection_name} deleted successfully!'}, status=status.HTTP_200_OK)
