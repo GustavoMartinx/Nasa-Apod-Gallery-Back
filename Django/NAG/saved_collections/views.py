@@ -74,3 +74,30 @@ def delete_collection(request, collection_name):
         return JsonResponse({'error': f'Something went wrong while deleting the {collection_name} collection.'}, status=status.HTTP_400_BAD_REQUEST)
     
     return JsonResponse({'message': f'Collection {collection_name} deleted successfully!'}, status=status.HTTP_200_OK)
+
+
+@login_required
+@api_view(['POST'])
+def add_image_to_collection(request):
+
+    list_of_collections = request.data.get('collections')
+    images_already_exist = []
+
+    for collection in list_of_collections:
+        try:
+            collection = SavedCollections.objects.get(user=request.user, name=collection)
+            
+            # varificar se a data da requisição já existe na lista de dates da coleção
+            if request.data.get('date') in collection.dates:
+                images_already_exist.append(collection.name)
+            else:
+                collection.dates.append(request.data.get('date'))
+                collection.save()
+
+        except SavedCollections.DoesNotExist:
+            return JsonResponse({'error': f'Collection {collection} not found.'}, status=status.HTTP_404_NOT_FOUND)
+    
+    # if len(images_already_exist) > 0:
+    #     return JsonResponse({'message': f'Images already exist in the following collections: {", ".join(images_already_exist)}'}, status=status.HTTP_200_OK)
+
+    return JsonResponse({'message': f'Image added to collection {", ".join(list_of_collections)} successfully!'}, status=status.HTTP_200_OK)
