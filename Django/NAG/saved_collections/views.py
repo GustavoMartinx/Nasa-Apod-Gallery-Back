@@ -83,11 +83,13 @@ def add_image_to_collection(request):
     list_of_collections = request.data.get('collections')
     images_already_exist = []
 
+    if len(list_of_collections) == 0:
+        return JsonResponse({'error': 'No collections selected. Please select at least one collection.'}, status=status.HTTP_400_BAD_REQUEST)
+
     for collection in list_of_collections:
         try:
             collection = SavedCollections.objects.get(user=request.user, name=collection)
-            
-            # varificar se a data da requisição já existe na lista de dates da coleção
+
             if request.data.get('date') in collection.dates:
                 images_already_exist.append(collection.name)
             else:
@@ -97,7 +99,10 @@ def add_image_to_collection(request):
         except SavedCollections.DoesNotExist:
             return JsonResponse({'error': f'Collection {collection} not found.'}, status=status.HTTP_404_NOT_FOUND)
     
-    # if len(images_already_exist) > 0:
-    #     return JsonResponse({'message': f'Images already exist in the following collections: {", ".join(images_already_exist)}'}, status=status.HTTP_200_OK)
+    if (len(images_already_exist) > 0) and (len(list_of_collections) == len(images_already_exist)):
+        return JsonResponse({'message': f'This image already exist in the following collections: {", ".join(images_already_exist)}'}, status=status.HTTP_200_OK)
+    elif (len(images_already_exist) > 0) and (len(list_of_collections) != len(images_already_exist)):
+        return JsonResponse({'message': f'Image added to collection(s) {", ".join(item for item in list_of_collections if item not in images_already_exist)} successfully!\n\nAnd the following collections already contain the image: {", ".join(images_already_exist)}'}, status=status.HTTP_200_OK)
+
 
     return JsonResponse({'message': f'Image added to collection {", ".join(list_of_collections)} successfully!'}, status=status.HTTP_200_OK)
